@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { randoms } = require('../controllers/random');
+const { random } = require('../controllers/random');
 
-router.get('/:cantidad?', randoms);
+router.get('/:cantidad?', random);
 
 module.exports = router;
