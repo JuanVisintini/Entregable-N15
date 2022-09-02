@@ -1,0 +1,26 @@
+npm run dev == MODO FORK
+
+tasklist /fi "imagename eq node.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+node.exe                      5340 Console                    1     37,052 K
+node.exe                     13792 Console                    1     29,268 K
+node.exe                      8776 Console                    1    120,568 K
+
+
+node index.js -m CLUSTER 
+
+tasklist /fi "imagename eq node.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+node.exe                     16120 Console                    1    121,420 K
+node.exe                     19996 Console                    1    121,452 K
+node.exe                     21464 Console                    1    121,252 K
+node.exe                     17188 Console                    1    120,248 K
+node.exe                     11156 Console                    1    121,352 K
+node.exe                     17880 Console                    1    121,836 K
+node.exe                      6576 Console                    1    121,604 K
+node.exe                     10812 Console                    1    118,196 K
+node.exe                     18952 Console                    1    120,364 K

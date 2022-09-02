@@ -1,0 +1,40 @@
+start nginx
+-----------------------------PARTE 1 ---------------------------------------
+config nginx
+
+ upstream randoms{
+        server 127.0.0.1:8081;
+        server 127.0.0.1:8080;
+    }
+
+location /api/randoms {
+            proxy_pass http://randoms;
+        }
+
+
+
+
+> pm2 start index.js --name="Servidor Cluster" --watch -i max -p 8081
+
+>pm2 start index.js --name="Servidor FORK" --watch -- -p 8080
+
+
+-----------------------------PARTE 2 ---------------------------------------
+
+ upstream randoms{
+        server 127.0.0.1:8082;
+        server 127.0.0.1:8083;
+        server 127.0.0.1:8084;
+        server 127.0.0.1:8085;
+    }
+
+
+location /api/randoms {
+            proxy_pass http://randoms;
+        }
+
+
+pm2 start index.js --name="Servidor FORK1" --watch -- -p 8082
+pm2 start index.js --name="Servidor FORK2" --watch -- -p 8083
+pm2 start index.js --name="Servidor FORK3" --watch -- -p 8084
+pm2 start index.js --name="Servidor FORK4" --watch -- -p 8085

@@ -1,0 +1,31 @@
+tasklist /fi "imagename eq node.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+node.exe                     16924 Console                    1     33,516 K
+node.exe                      8692 Console                    1     89,108 K
+
+info:    Forever processes running
+data:        uid  command                            script                                                       forever pid   id logfile                         uptime      
+data:    [0] cABf "C:\Program Files\nodejs\node.exe" C:\Users\Juan\Desktop\CoderH\Entregable-N15\index.js -p 3000 14424   16556    C:\Users\Juan\.forever\cABf.log 0:0:0:1.997
+
+CLUSTER
+
+tasklist /fi "imagename eq node.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+node.exe                     24500 Console                    1     33,216 K
+node.exe                     23284 Console                    1    120,404 K
+node.exe                     17260 Console                    1    121,824 K
+node.exe                     19388 Console                    1    121,884 K
+node.exe                      1480 Console                    1    122,108 K
+node.exe                      5144 Console                    1    121,620 K
+node.exe                     14716 Console                    1    121,224 K
+node.exe                      8120 Console                    1    119,276 K
+node.exe                     17692 Console                    1    121,748 K
+node.exe                     15892 Console                    1    122,088 K
+
+info:    Forever processes running
+data:        uid  command                            script                                                                  forever pid   id logfile                         uptime
+data:    [0] lT3- "C:\Program Files\nodejs\node.exe" C:\Users\Juan\Desktop\CoderH\Entregable-N15\index.js -p 3001 -m CLUSTER 24500   23284    C:\Users\Juan\.forever\lT3-.log 0:0:0:50.099

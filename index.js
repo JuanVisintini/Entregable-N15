@@ -1,21 +1,23 @@
+require('dotenv').config();
 const express = require('express');
+const app = express();
 const util = require('util');
 const { engine } = require('express-handlebars');
-
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const MongoStore = require("connect-mongo");
+const os = require('os');
+const cluster = require('cluster');
 
 const argumentos = require('./yargs');
 const PORT = argumentos.port;
+const MODO = argumentos.modo;
+const numeroCpu = os.cpus().length;
+const processId = process.pid;
 
-require('dotenv').config();
-const app = express();
-//const port = process.env.PORT || 8080;
 
 //FAKER 
 const { productos } = require('./faker/faker');
-
 const elegirContenedor = require('./daos/index');
 
 const { Server: HttpServer } = require('http');
@@ -25,7 +27,6 @@ const io = new IoServer(httpServer);
 
 //Normalizr
 const normalizr = require('normalizr');
-
 const autorSchema = new normalizr.schema.Entity('autor', {}, { idAttribute: 'mail' });
 const mensajeSchema = new normalizr.schema.Entity('mensaje', {
     autor: autorSchema,
@@ -76,46 +77,10 @@ app.get("/", (req, res) => {
 
 app.use('/api', require('./routes'))
 
-// app.get("/api/productos", (req, res) => {
-//     res.render("formProductos");
-// });
+app.use ("/port", (req, res) => {
+    res.send(`El puerto es ${PORT}`);
+});
 
-// app.get("/api/productos", (req, res) => {
-//     if (req.session.nombreUsuario) {
-//         res.render("formProductos", { nombreUsuario: req.session.nombreUsuario });
-//     } else {
-//         res.render("loginForm")
-//     }
-// });
-
-// app.post("/api/productos/login", (req, res) => {
-//     const { nombreUsuario } = req.body;
-//     if (nombreUsuario) {
-//         req.session.nombreUsuario = nombreUsuario;
-//         res.redirect("/api/productos");
-//     } else {
-//         res.redirect("/api/productos");
-//     }
-// });
-
-// app.post("/api/productos/logout", (req, res) => {
-//     const nombreUsuario = req.session.nombreUsuario;
-//     // res.render("adios", { nombreUsuario: req.session.nombreUsuario });
-
-//     req.session.destroy(err => {
-//         if (err) {
-//             console.log(err)
-//         } else {
-//             res.render('chau', { nombreUsuario })
-//             res.set({ 'Refresh': '3; url=/api/productos' });
-//         }
-//     });
-// });
-
-// app.get("/api/productos-test", (req, res) => {
-//     res.render("listaProductosTest", { products: productos(5) })
-
-// });
 
 //Socket
 io.on('connection', async (socket) => {
@@ -155,6 +120,26 @@ io.on('connection', async (socket) => {
     })
 })
 
-httpServer.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+//server
+if(MODO === "FORK"){
+
+    httpServer.listen(PORT, () => { 
+        console.log(`Servidor http escuchando en el puerto ${PORT}`);
+    });
+
+}else{
+    console.log(`Procesos: ${processId} , isMaster: ${cluster.isMaster}, isWorker: ${cluster.isWorker}, numeroCpu: ${numeroCpu}`);
+    if(cluster.isPrimary){
+        for(let i = 0; i < numeroCpu; i++){
+            cluster.fork();
+        }
+        cluster.on('exit', (worker) => {
+            console.log(`Worker ${worker.process.pid} died`);
+        });
+        
+    }else{
+        httpServer.listen(PORT, () => { 
+            console.log(`Servidor http escuchando en el puerto ${PORT}`);
+        });
+    }
+}

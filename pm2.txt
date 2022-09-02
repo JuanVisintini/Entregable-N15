@@ -1,0 +1,56 @@
+pm2 start index.js --name="Servidor fork" --watch  -- -p 8081
+[PM2] PM2 Successfully daemonized
+[PM2] Starting C:\Users\Juan\Desktop\CoderH\Entregable-N15\index.js in fork_mode (1 instance)
+[PM2] Done.
+┌─────┬──────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name             │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼──────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0   │ Servidor Fork    │ default     │ 1.0.0   │ fork    │ 10220    │ 0s     │ 0    │ online    │ 0%       │ 34.0mb   │ Juan     │ enabled  │
+└─────┴──────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+
+tasklist /fi "imagename eq node.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+node.exe                     14424 Console                    1     33,300 K
+node.exe                     16556 Console                    1     89,812 K
+node.exe                     20584 Console                    1     46,940 K
+node.exe                     14980 Console                    1    126,580 K
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+CLUSTER
+
+pm2 start index.js --name="Servidor Cluser" --watch -i max -- -p 8080 
+┌─────┬────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name               │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1   │ Servidor Cluser    │ default     │ 1.0.0   │ cluster │ 15996    │ 12s    │ 0    │ online    │ 0%       │ 117.9mb  │ Juan     │ enabled  │
+│ 2   │ Servidor Cluser    │ default     │ 1.0.0   │ cluster │ 7756     │ 12s    │ 0    │ online    │ 0%       │ 118.4mb  │ Juan     │ enabled  │
+│ 3   │ Servidor Cluser    │ default     │ 1.0.0   │ cluster │ 19208    │ 12s    │ 0    │ online    │ 0%       │ 120.8mb  │ Juan     │ enabled  │
+│ 4   │ Servidor Cluser    │ default     │ 1.0.0   │ cluster │ 23408    │ 11s    │ 0    │ online    │ 0%       │ 120.1mb  │ Juan     │ enabled  │
+│ 5   │ Servidor Cluser    │ default     │ 1.0.0   │ cluster │ 10304    │ 11s    │ 0    │ online    │ 0%       │ 117.5mb  │ Juan     │ enabled  │
+│ 6   │ Servidor Cluser    │ default     │ 1.0.0   │ cluster │ 14400    │ 11s    │ 0    │ online    │ 0%       │ 118.2mb  │ Juan     │ enabled  │
+│ 7   │ Servidor Cluser    │ default     │ 1.0.0   │ cluster │ 16784    │ 10s    │ 0    │ online    │ 0%       │ 124.4mb  │ Juan     │ enabled  │
+│ 8   │ Servidor Cluser    │ default     │ 1.0.0   │ cluster │ 11136    │ 10s    │ 0    │ online    │ 0%       │ 123.7mb  │ Juan     │ enabled  │
+│ 0   │ Servidor Fork      │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ Juan     │ disabled │
+└─────┴────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+
+tasklist /fi "imagename eq node.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+node.exe                     14424 Console                    1     33,300 K
+node.exe                     16556 Console                    1     89,256 K
+node.exe                     20584 Console                    1     85,268 K
+node.exe                     14980 Console                    1     92,152 K
+node.exe                      5912 Console                    1    114,376 K
+node.exe                      8872 Console                    1    115,472 K
+node.exe                     19676 Console                    1    113,344 K
+node.exe                      1116 Console                    1    103,464 K
+node.exe                      5880 Console                    1    102,100 K
+node.exe                     16332 Console                    1    101,872 K
+node.exe                     17648 Console                    1    103,800 K
+node.exe                     20980 Console                    1    105,076 K
+
